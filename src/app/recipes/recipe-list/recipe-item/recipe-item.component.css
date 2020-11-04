@@ -1,15 +1,21 @@
 .recipeDesc{
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-right: 10px;
 }
 
-.card{
-    border-radius: 20px;
+a{
+    text-decoration: none;
+    color: black;
 }
 
-.card > img{
-    border-radius: 20px 20px 0 0;
+a:hover{
+    color: #007bff;
 }
+
+.image-parent {
+    max-width: 80px;
+  }

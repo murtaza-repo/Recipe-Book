@@ -1,13 +1,16 @@
-import { EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Recipe } from './recipe.model';
 
+@Injectable()
 export class RecipeService{
-    recipeSelected = new EventEmitter<Recipe>();
+
+    constructor(private slService: ShoppingListService){}
 
     recipes: Recipe[] = [
         new Recipe(
-          'Veg Burger (With Mix Vegetable Patties)',
+          'Veg Burger',
           'A veggie burger is a burger patty that does not contain meat. These burgers may be made from ingredients like beans, especially soybeans and tofu, nuts, grains, seeds or fungi such as mushrooms or mycoprotein. The patties that are the essence of a veggie burger have existed in various Eurasian cuisines for millennia, including in the form of disc-shaped grilled or fried meatballs or as koftas, a commonplace item in Indian cuisine. These may contain meats or be made of entirely vegetarian ingredients such as legumes or other plant-derived proteins.',
           'https://storage.googleapis.com/gen-atmedia/3/2019/05/a94cfde51967df5caf0f1641f53a5470df4421c1.jpeg',
           [
@@ -31,7 +34,15 @@ export class RecipeService{
         )
     ];
 
-    getRecipe(){
+    getRecipes(){
         return this.recipes.slice();
     }
+
+    getRecipe(index: number){
+        return this.recipes[index];
+    }
+
+    addIngredientsToShoppingList(ingredients: Ingredient[]) {
+        this.slService.addIngredients(ingredients);
+      }
 }
