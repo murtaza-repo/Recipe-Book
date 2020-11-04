@@ -1,0 +1,8 @@
+<div class="card mb-3">
+    <img [src]="recipe.imagePath" alt="{{ recipe.name }}" class="img-fluid">
+    <div class="card-body">
+      <h5 class="card-title">{{ recipe.name }}</h5>
+      <p class="card-text recipeDesc">{{ recipe.description }}</p>
+      <a href="#" class="btn btn-primary" (click)="onSelected()">Details >>></a>
+    </div>
+  </div>
