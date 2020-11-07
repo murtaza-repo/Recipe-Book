@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Recipe } from './recipe.model';
 
 @Injectable()
 export class RecipeService{
+
+    recipesChanged = new Subject<Recipe[]>();
 
     constructor(private slService: ShoppingListService){}
 
@@ -22,7 +25,7 @@ export class RecipeService{
           ]
         ),
         new Recipe(
-          'Veg paneer pizza',
+          'Veg Paneer Pizza',
           'Pizza is a flat bread which is prepared with all purpose flour and fermented with yeast. It is typically topped with mozzarella cheese, pizza tomato sauce and other vegetarian pizza toppings. Pizza can be consumed as snack, but not limited for lunch and dinner too.',
           'https://www.sinceindependence.com/wp-content/uploads/2020/04/July-Recipes-26.jpg',
           [
@@ -44,5 +47,20 @@ export class RecipeService{
 
     addIngredientsToShoppingList(ingredients: Ingredient[]) {
         this.slService.addIngredients(ingredients);
-      }
+    }
+
+    addRecipe(recipe: Recipe){
+        this.recipes.push(recipe);
+        this.recipesChanged.next(this.recipes.slice());
+    }
+
+    updateRecipe(index: number, newRecipe: Recipe){
+        this.recipes[index] = newRecipe;
+        this.recipesChanged.next(this.recipes.slice());
+    }
+
+    deleteRecipe(index: number){
+        this.recipes.splice(index, 1);
+        this.recipesChanged.next(this.recipes.slice());
+    }
 }
